@@ -1,11 +1,14 @@
 #include<cmath>
 #include<iostream>
 using namespace std;
+
 int n,k,d,b[10],c[10],g[10];
+
 void display(int *a)
 { cout<<"\n";
   for(int i=1;i<=n;i++)
   { cout<<a[i]<<" ";}}
+
 void countsort(int *a,int *g)
 { int i,j;
   for(i=0;i<=k;i++)
@@ -19,12 +22,14 @@ void countsort(int *a,int *g)
     c[g[j]]=c[g[j]]-1;}
   for(i=1;i<=n;i++)
   { a[i]=b[i];}}
+
 void radixsort(int *a)
 { int i,j;
   for(i=1;i<=d;i++)
   { for(j=1;j<=n;j++)
     { g[j]=int(a[j]/pow(10,(i-1)))%10;}
     countsort(a,g);}}
+
 int main()
 { cout<<"\nEnter the no'of elements: ";
   cin>>n;
