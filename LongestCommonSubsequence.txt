@@ -1,8 +1,10 @@
 #include<iostream>
 using namespace std;
+
 int c[15][15];
 char b[15][15];
 static int l1,l2;
+
 void LCS(string X,string Y)
 { int i,j;
   for(i=1;i<=l1;i++)
@@ -20,6 +22,7 @@ void LCS(string X,string Y)
       else
       { c[i][j]=c[i][j-1];
         b[i][j]='-';}}}}
+
 void printLCS(string X,int i,int j)
 { if(i==0 || j==0)
   { return;}
@@ -30,6 +33,7 @@ void printLCS(string X,int i,int j)
   { printLCS(X,i-1,j);}
   else
   { printLCS(X,i,j-1);}}
+
 int main()
 { string X,Y;
   cout<<"\nEnter sequence 1: ";
