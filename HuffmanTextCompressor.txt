@@ -1,8 +1,10 @@
 #include<iostream>
 #include<cmath>
 using namespace std;
+
 int n;
 static int o;
+
 class node
 { public:
   char alp;
@@ -10,11 +12,14 @@ class node
   node* left;
   node* right;
   node*link;};
+
 class Queue
 { public:
   node *val,*front,*temp,*pre;
+  
   Queue()
   { front=new node();}
+  
   void insert(node *c)
   { if(front->freq==0)
     { front=c;}
@@ -40,6 +45,7 @@ class Queue
         val=c;
         pre->link=val;
         val->link=NULL;}}}
+  
   node* extractmin()
   { temp =new node();
     temp=front;
@@ -49,6 +55,7 @@ class Queue
     { front=new node();
       front->freq=0;}
     return temp;}
+  
   void display()
   { temp=new node();
     temp=front;
@@ -56,6 +63,7 @@ class Queue
     while(temp!=NULL)
     { cout<<temp->alp<<"("<<temp->freq<<")"<<"->";
       temp=temp->link;}}
+  
   void compressed(node* ele,string c)
   { if(ele!=NULL)
     { compressed(ele->left,c+"0");
@@ -63,6 +71,7 @@ class Queue
       if(ele->alp!='\0')
       { cout<<"\n"<<ele->alp<<"="<<c;
         o=o+c.length();}}}};
+
 void huffman(Queue &q,int n)
 { int i;
   node *z,*x,*y;
@@ -74,6 +83,7 @@ void huffman(Queue &q,int n)
     z->left=x;
     z->right=y;
     q.insert(z);}}
+
 int main()
 { int n,z,j,i;
   Queue q;
