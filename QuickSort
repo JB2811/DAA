@@ -1,0 +1,34 @@
+#include<iostream>
+using namespace std;
+int n;
+void display(int *a)
+{ cout<<"\n";
+  for(int i=1;i<=n;i++)
+  { cout<<a[i]<<" "; }}
+int partition(int *a,int l,int h)
+{ int x,i,j;
+  x=a[h];
+  i=l-1;
+  for(j=l;j<h;j++)
+  { if(a[j]<=x)
+    { i=i+1;
+      swap(a[i],a[j]);}}
+  swap(a[i+1],a[h]);
+  return i+1;}
+void quicksort(int *a,int l,int h)
+{ int m;
+  if(l<h)
+  { m=partition(a,l,h);
+    quicksort(a,l,m-1);
+    quicksort(a,m+1,h);}}
+int main()
+{ int a[10];
+  cout<<"enter the size of the array: ";
+  cin>>n;
+  cout<<"\nEnter the elements: ";
+  for(int i=1;i<=n;i++)
+  { cin>>a[i];}
+  quicksort(a,1,n);
+  display(a);
+  return 0;
+}
