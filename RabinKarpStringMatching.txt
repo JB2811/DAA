@@ -1,6 +1,7 @@
 #include<iostream>
 #include<cmath>
 using namespace std;
+
 void RabinKarp(string T,string P)
 { int m=P.length();
   int n=T.length();
@@ -21,6 +22,7 @@ void RabinKarp(string T,string P)
       { cout<<"\nValid Shift at "<<s;}}
     ti=((d*(ti-(h*(int(T[s])))))+(int(T[s+m])));
     t[s+1]=ti%q;}}
+
 int main()
 { string T,P;
   cout<<"\nEnter Text: ";
