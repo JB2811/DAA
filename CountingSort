@@ -7,24 +7,19 @@ void display(int *a)
   for(int i=1;i<=n;i++)
   { cout<<a[i]<<" ";}}
 void countingsort(int *a,int k)
-{ cout<<"c";
-  int c[4];
-  cout<<"c";
+{ int c[k+1];
   int i,j;
-  for(i=0;i<k;i++)
-  { cout<<"c";
-    c[i]=0;}
-  cout<<"c";
+  for(i=0;i<=k;i++)
+  { c[i]=0;}
   for(j=1;j<=n;j++)
   { c[a[j]]=c[a[j]]+1;}
-  for(i=1;i<k;i++)
+  for(i=1;i<=k;i++)
   { c[i]=c[i]+c[i-1];}
   for(i=n;i>0;i--)
   { b[c[a[j]]]=a[j];
     c[a[j]]=c[a[j]]-1;}}
 int main()
 { int a[10],k;
-  int *b;
   cout<<"\nEnter the size of the array: ";
   cin>>n;
   cout<<"\nEnter the elements: ";
