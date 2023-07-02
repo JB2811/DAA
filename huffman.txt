@@ -1,0 +1,107 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int n;
+static int o;
+class node
+{ public:
+  char alp;
+  int freq;
+  node* left;
+  node* right;
+  node*link;};
+class Queue
+{ public:
+  node *val,*front,*temp,*pre;
+  Queue()
+  { front=new node();}
+  void insert(node *c)
+  { if(front->freq==0)
+    { front=c;}
+    else
+    { temp=new node();
+      pre=new node();
+      temp=front;
+      pre=NULL;
+      while(temp!=NULL)
+      { if(c->freq<temp->freq)
+        { val=new node();
+          val=c;
+          val->link=temp;
+          if(pre!=NULL)
+          { pre->link=val;}
+          else
+          { front=val;}
+          break;}
+        pre=temp;
+        temp=temp->link;}
+      if(temp==NULL)
+      { val=new node();
+        val=c;
+        pre->link=val;
+        val->link=NULL;}}}
+  node* extractmin()
+  { temp =new node();
+    temp=front;
+    val=front->link;
+    front=val;
+    if(val==NULL)
+    { front=new node();
+      front->freq=0;}
+    return temp;}
+  void display()
+  { temp=new node();
+    temp=front;
+    cout<<"\nMin Queue: ";
+    while(temp!=NULL)
+    { cout<<temp->alp<<"("<<temp->freq<<")"<<"->";
+      temp=temp->link;}}
+  void compressed(node* ele,string c)
+  { if(ele!=NULL)
+    { compressed(ele->left,c+"0");
+      compressed(ele->right,c+"1");
+      if(ele->alp!='\0')
+      { cout<<"\n"<<ele->alp<<"="<<c;
+        o=o+c.length();}}}};
+void huffman(Queue &q,int n)
+{ int i;
+  node *z,*x,*y;
+  for(i=1;i<n;i++)
+  { z=new node();
+    x=q.extractmin();
+    y=q.extractmin();
+    z->freq=x->freq+y->freq;
+    z->left=x;
+    z->right=y;
+    q.insert(z);}}
+int main()
+{ int n,z,j,i;
+  Queue q;
+  int fr[10]={0,0,0,0,0,0,0,0,0,0};
+  string g,f;
+  o=0; n=0;
+  cout<<"\nEnter the sequence: ";
+  cin>>g;
+  for(i=0;i<g.length();i++)
+  { j=f.find(g[i]);
+    if(j<0||f=="")
+    { f=f+g[i];
+      n++;
+      fr[f.length()-1]++;}
+    else
+    { fr[j]++;}}
+  node* c[n];
+  for(i=1;i<=n;i++)
+  { c[i]=new node();
+    c[i]->alp=f[i-1];
+    c[i]->freq=fr[i-1];
+    q.insert(c[i]);}
+  huffman(q,n);
+  q.compressed(q.front,"\0");
+  i=1;
+  while(n>pow(2,i))
+  { i++;}
+  for(j=1;j<=n;j++)
+  { z=z+i*c[j]->freq;}
+  cout<<"\nCompression ratio= "<<(float(z)/o);
+  return 0;}

@@ -1,0 +1,98 @@
+#include<iostream>
+using namespace std;
+struct vertex
+{ int val,rank;
+  vertex* p;};
+struct Edge
+{ vertex *u,*v;
+  int w;};
+struct Graph
+{ vertex *V[20];
+  Edge E[20];
+  int v,e;};
+Graph g;
+void Makeset(vertex* x)
+{ x->p=new vertex();
+  x->p=x;
+  x->rank=0;}
+vertex* Findset(vertex *x)
+{ if(x!=x->p)
+  { x->p=Findset(x->p);}
+  return x->p;}
+void Link(vertex *x,vertex *y)
+{ if( x->rank>y->rank)
+  { y->p=x;}
+  else
+  { x->p=y;
+    if(x->rank==y->rank)
+    { y->rank=y->rank+1;}}}
+void Union(vertex *x,vertex *y)
+{ Link(Findset(x),Findset(y));}
+struct node
+{ Edge e;
+  node* link;};
+class SLL
+{ public:
+   node *head,*rear,*temp,*pnew;
+   SLL()
+   { head=new node();
+     rear=new node();
+     head=NULL;}
+   void insert(Edge val)
+   { pnew=new node();
+     if(head==NULL)
+     { pnew->e=val;
+       pnew->link=NULL;
+       head=pnew;
+       rear=pnew;}
+     else
+     { pnew->e=val;
+       pnew->link=NULL;
+       rear->link=pnew;
+       rear=pnew;}}
+   int display()
+   { int w;
+     temp=new node();
+     temp=head;
+     cout<<"\nEdges in MST:-";
+     while(temp!=NULL)
+     { cout<<"\n("<<temp->e.u->val<<","<<temp->e.v->val<<") - "<<temp->e.w;
+       w+=temp->e.w;
+       temp=temp->link;}
+     return w;}};
+SLL A;
+void MSTKruskal()
+{ int i,j,weight;
+  for(i=1;i<=g.v;i++)
+  { Makeset(g.V[i]);}
+  for(i=1;i<=g.e;i++)
+  { for(j=i+1;j<=g.e;j++)
+    { if(g.E[i].w>g.E[j].w)
+      { swap(g.E[i],g.E[j]);}}}
+  for(i=1;i<=g.e;i++)
+  { if(Findset(g.E[i].u)!=Findset(g.E[i].v))
+    { A.insert(g.E[i]);
+      Union(g.E[i].u,g.E[i].v);}}
+  weight=A.display();
+  cout<<"\nTotal weight of MST is "<<weight;}
+int main()
+{ int i,j,u,v;
+  cout<<"\nEnter no' of vertices: ";
+  cin>>g.v;
+  for(i=1;i<=g.v;i++)
+  { g.V[i]=new vertex();
+    g.V[i]->val=i;}
+  cout<<"\nEnter no' of Edges: ";
+  cin>>g.e;
+  cout<<"\nEnter edges:-";
+  for(i=1;i<=g.e;i++)
+  { cout<<"\nEnter vertices for edge "<<i<<": ";
+    cin>>u>>v;
+    g.E[i].u=new vertex();
+    g.E[i].v=new vertex();
+    g.E[i].u=g.V[u];
+    g.E[i].v=g.V[v];
+    cout<<"\nEnter weight for edge E["<<u<<"]["<<v<<"]: ";
+    cin>>g.E[i].w;}
+  MSTKruskal();
+  return 0;}

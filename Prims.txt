@@ -1,0 +1,121 @@
+#include<iostream>
+using namespace std;
+struct vertex
+{ int key,val;};
+struct node
+{ vertex* val;
+  node* link;};
+struct Edge
+{ int w;
+  vertex *u,*v;};
+struct Graph
+{ int v,r,e;
+  vertex *V[20];
+  Edge E[20];};
+Graph g;
+class Queue
+{ public:
+   node *valu,*front,*temp,*pnew,*pre;
+   Queue()
+   { front=new node();
+     front=NULL;}
+   void insert(vertex* p)
+   { pnew=new node();
+     pnew->val=new vertex();
+     if(front==NULL)
+     { pnew->val=p;
+       pnew->link=NULL;
+       front=pnew;}
+     else
+     { temp=new node();
+       pre=new node();
+       temp=front;
+       while(temp!=NULL)
+       { if(p->key<temp->val->key)
+         { break;}
+         pre=temp;
+         temp=temp->link;}
+       pnew->val=p;
+       pre->link=pnew;
+       if(temp!=NULL)
+       {pnew->link=temp;}
+       if(pre==NULL)
+       { pnew->link=front;
+         front=pnew;}}}
+   int ExtractMin()
+   { temp=new node();
+     temp=front->link;
+     valu=new node();
+     valu=front;
+     front=temp;
+     return valu->val->val;}
+   bool inQueue(int t)
+   { temp=new node();
+     temp=front;
+     while(temp!=NULL)
+     { if(temp->val->val==t)
+       { return true;}
+       temp=temp->link;}
+       return false;}
+   void MinQueue()
+   { temp=new node();
+     pre=new node();
+     pnew=new node();
+     pre=front;
+     while(pre!=NULL)
+     { temp=pre->link;
+       while(temp!=NULL)
+       { if(pre->val->val<temp->val->val)
+         { pnew=pre;
+           pre=temp;
+           temp=pnew;}
+         temp=temp->link;}
+        pre=pre->link;}}};
+Queue q;
+void MSTPrim(int r)
+{ int i,u,v,weight;
+  for(i=1;i<=g.v;i++)
+  { g.V[i]->key=1000000;}
+  g.V[g.r]->key=0;
+  for(i=1;i<=g.v;i++)
+  { q.insert(g.V[i]);}
+  while(q.front!=NULL)
+  { u=q.ExtractMin();
+    for(i=1;i<=g.e;i++)
+    { if(g.E[i].u->val==u)
+      { if(q.inQueue(g.E[i].v->val))
+        { if(g.E[i].w<g.E[i].v->key)
+          { g.E[i].v->key=g.E[i].w;
+            q.MinQueue();}}}}}
+  cout<<"\nEdges in MST:-";
+  for(i=1;i<=g.v;i++)
+  { if( g.V[i]->key>0)
+    { for(u=1;u<=g.e;u++)
+      { if(g.E[u].v->val==g.V[i]->val)
+        { if(g.E[u].w==g.V[i]->key)
+          { cout<<"\n("<<g.E[u].u->val<<","<<g.E[u].v->val<<") - "<<g.V[i]->key;
+            weight+=g.V[i]->key;}}}}}
+  cout<<"\nTotal Weight: "<<weight;}
+int main()
+{ int i,j,u,v;
+  cout<<"\nenter the no' of vertices: ";
+  cin>>g.v;
+  for(i=1;i<=g.v;i++)
+  { g.V[i]=new vertex();
+    g.V[i]->val=i;}
+  cout<<"\nEnter the no' of edges: ";
+  cin>>g.e;
+  cout<<"\nEnter the edges:- ";
+  for(i=1;i<=g.e;i++)
+  { cout<<"\nEnter edge "<<i<<" vertices: ";
+    cin>>u>>v;
+    g.E[i].u=new vertex();
+    g.E[i].v=new vertex();
+    g.E[i].u=g.V[u];
+    g.E[i].v=g.V[v];
+    cout<<"\nEnter weight of E["<<u<<"]["<<v<<"]: ";
+    cin>>g.E[i].w;}
+  cout<<"\nEnter the root vertex: ";
+  cin>>g.r;
+  MSTPrim(g.r);
+  return 0;}

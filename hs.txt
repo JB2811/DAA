@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+int a[10],b[10],n,h;
+void display()
+{ cout<<"\n";
+  for(int i=1;i<=n;i++)
+  { cout<<a[i]<<" ";}}
+void maxheapify(int i)
+{ int l=2*i;
+  int r=2*i+1;
+  int largest;
+  if(l<=h && a[l]>a[i])
+  { largest=l;}
+  else
+  { largest=i;}
+  if(r<=h && a[r]>a[largest])
+  { largest=r;}
+  if(largest!=i)
+  { swap(a[i],a[largest]);
+    maxheapify(largest);}}
+void buildmaxheap()
+{ int i;
+  for(i=h/2;i>0;i--)
+  { maxheapify(i);}}
+void heapsort()
+{ h=n;
+  buildmaxheap();
+  display();
+  for(int i=n;i>=1;i--)
+  { swap(a[1],a[h]);
+    h--;
+    maxheapify(1);}}
+int main()
+{ int i;
+  cout<<"\nEnter size: ";
+  cin>>n;
+  cout<<"\nEnter elements: ";
+  for(i=1;i<=n;i++)
+  { cin>>a[i];}
+  heapsort();
+  display();
+  return 0;}

@@ -1,0 +1,46 @@
+#include<iostream>
+using namespace std;
+struct edge
+{ int u,v,w;};
+struct Graph
+{ int V,e,s,d[10];
+  edge E[20];};
+Graph g;
+void intialisesinglesource()
+{ for(int i=1;i<=g.V;i++)
+  { g.d[i]=10000000;}
+  g.d[g.s]=0;}
+void relax(int u,int v,int w)
+{ if(g.d[v]>(g.d[u]+w))
+  { g.d[v]=g.d[u]+w;}}
+bool bellman()
+{ intialisesinglesource();
+  int i,j;
+  for(i=1;i<g.V;i++)
+  { for(j=1;j<=g.e;j++)
+    { relax(g.E[j].u,g.E[j].v,g.E[j].w);}}
+  for(i=1;i<=g.e;i++)
+  { if(g.d[g.E[i].v]>(g.d[g.E[i].u]+g.E[i].w))
+    { return false;}}
+  return true;}
+int main()
+{ int i;
+  cout<<"\nEnter the no' of vertices: ";
+  cin>>g.V;
+  cout<<"\nEnter the no' of edges: ";
+  cin>>g.e;
+  cout<<"\nEnter edges:- ";
+  for(i=1;i<=g.e;i++)
+  { cout<<"\nEnter the vertices of edge "<<i<<": ";
+    cin>>g.E[i].u>>g.E[i].v;
+    cout<<"\nEnter the weight: ";
+    cin>>g.E[i].w;}
+  cout<<"\nEnter source vertex: ";
+  cin>>g.s;
+  if(bellman())
+  { cout<<"\nShortest path from source vertex to ";
+    for(i=1;i<=g.V;i++)
+    { cout<<"\n"<<i<<" is "<<g.d[i];}}
+  else
+  { cout<<"\nGraph has negative weight cycle";}
+  return 0;}

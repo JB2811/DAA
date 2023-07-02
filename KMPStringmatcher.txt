@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+int pi[20];
+void computeprefixfunction(string P)
+{ int m=P.length();
+  pi[0]=-1;
+  int k=-1;
+  for(int q=1;q<m;q++)
+  { while(k>=0 && P[k+1]!=P[q])
+    { k=pi[k];}
+    if(P[k+1]==P[q])
+    { k++;}
+    pi[q]=(k);}}
+void KMPmatcher(string T,string P)
+{ int n=T.length();
+  int m=P.length();
+  computeprefixfunction(P);
+  int i,q=-1;
+  for(i=0;i<n;i++)
+  { while(q>=0 && P[q+1]!=T[i])
+    { q=pi[q];}
+    if(P[q+1]==T[i])
+    { q++;}
+    if(q==(m-1))
+    { cout<<"\nValid shift at "<<(i-(m-1));
+      q=pi[q];}}}
+int main()
+{ string T,P;
+  cout<<"\nEnter text: ";
+  cin>>T;
+  cout<<"\nEnter pattern: ";
+  cin>>P;
+  KMPmatcher(T,P);}

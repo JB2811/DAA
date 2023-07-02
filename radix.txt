@@ -1,0 +1,40 @@
+#include<cmath>
+#include<iostream>
+using namespace std;
+int n,k,d,b[10],c[10],g[10];
+void display(int *a)
+{ cout<<"\n";
+  for(int i=1;i<=n;i++)
+  { cout<<a[i]<<" ";}}
+void countsort(int *a,int *g)
+{ int i,j;
+  for(i=0;i<=k;i++)
+  { c[i]=0;}
+  for(j=1;j<=n;j++)
+  { c[g[j]]++;}
+  for(i=1;i<=k;i++)
+  { c[i]=c[i]+c[i-1];}
+  for(j=n;j>=1;j--)
+  { b[c[g[j]]]=a[j];
+    c[g[j]]=c[g[j]]-1;}
+  for(i=1;i<=n;i++)
+  { a[i]=b[i];}}
+void radixsort(int *a)
+{ int i,j;
+  for(i=1;i<=d;i++)
+  { for(j=1;j<=n;j++)
+    { g[j]=int(a[j]/pow(10,(i-1)))%10;}
+    countsort(a,g);}}
+int main()
+{ cout<<"\nEnter the no'of elements: ";
+  cin>>n;
+  int a[10];
+  cout<<"\nEnter the elements: ";
+  for(int i=1;i<=n;i++)
+  { cin>>a[i];}
+  cout<<"\nEnter the no'of digits: ";
+  cin>>d;
+  cout<<"\nk: ";
+  cin>>k;
+  radixsort(a);
+  display(a);}

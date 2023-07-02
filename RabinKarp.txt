@@ -1,0 +1,31 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+void RabinKarp(string T,string P)
+{ int m=P.length();
+  int n=T.length();
+  int t[20];
+  int ti=0;
+  int d=10;
+  int p=0;
+  int q=11;
+  for(int i=0;i<m;i++)
+  { p=(d*p+(int(P[i])));
+    ti=(d*ti+(int(T[i])));}
+  p=p%q;
+  t[0]=ti%q;
+  int h=pow(d,m-1);
+  for(int s=0;s<=(n-m);s++)
+  { if(p==t[s])
+    { if(P==T.substr(s,m))
+      { cout<<"\nValid Shift at "<<s;}}
+    ti=((d*(ti-(h*(int(T[s])))))+(int(T[s+m])));
+    t[s+1]=ti%q;}}
+int main()
+{ string T,P;
+  cout<<"\nEnter Text: ";
+  cin>>T;
+  cout<<"\nEnter Pattern: ";
+  cin>>P;
+  RabinKarp(T,P);
+  return 0;}

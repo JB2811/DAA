@@ -1,0 +1,85 @@
+#include<iostream>
+using namespace std;
+static int time;
+struct SNode
+{ int val;
+  SNode* link;};
+class SLL
+{ public:
+   SNode *temp,*head,*pnew,*pre;
+   SLL()
+   { head=new SNode();
+     pre=new SNode();
+     head=NULL;}
+   void insert(int u)
+   { if(head==NULL)
+     { pnew=new SNode();
+       pnew->val=u;
+       pnew->link=NULL;
+       head=pnew;
+       pre=head;}
+     else
+     { pnew=new SNode();
+       pnew->val=u;
+       pnew->link=pre;
+       pre=pnew;
+       head=pnew;}}
+   void display()
+   { temp=new SNode();
+     temp=head;
+     cout<<"\n";
+     while(temp!=NULL)
+     { cout<<temp->val<<"-->";
+       temp=temp->link;}
+     cout<<"NULL";}};
+SLL s;
+struct Node
+{ string color;
+  int d,f;};
+struct Edge
+{ int u,v;};
+struct Graph
+{ int V,e;
+  Node N[20];
+  Edge E[20];};
+Graph g;
+void DFSVISIT(Node &U,int p)
+{ int i;
+  time++;
+  U.d=time;
+  U.color="gray";
+  for(i=1;i<=g.e;i++)
+  { if(g.E[i].u==p)
+    { if(g.N[g.E[i].v].color=="white")
+      { DFSVISIT(g.N[g.E[i].v],g.E[i].v);}}}
+  U.color="black";
+  time++;
+  U.f=time;
+  s.insert(p);}
+void DFS()
+{ int i;
+  for(i=1;i<=g.V;i++)
+  { g.N[i].color="white";}
+  time=0;
+  for(i=1;i<=g.V;i++)
+  { if(g.N[i].color=="white")
+    { DFSVISIT(g.N[i],i);}}}
+void Topologicalsort()
+{ DFS();
+  cout<<"\nDFS:-";
+  for(int i=1;i<=g.V;i++)
+  { cout<<"\nvertex: "<<i<<" at times "<<g.N[i].d<<"/"<<g.N[i].f;}
+  cout<<"\nTopoloical order: ";
+  s.display();}
+int main()
+{ int i;
+  cout<<"\nEnter the no' of vertices: ";
+  cin>>g.V;
+  cout<<"\nEnter no' of edges: ";
+  cin>>g.e;
+  cout<<"\nEnter edges:- ";
+  for(i=1;i<=g.e;i++)
+  { cout<<"\nEnter edge "<<i<<" vertices : ";
+    cin>>g.E[i].u>>g.E[i].v;}
+  Topologicalsort();
+  return 0;}
