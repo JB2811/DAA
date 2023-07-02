@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
+
 int n,a[10],ml,mr;
+
 int sum(int l,int m,int h)
 { int i,j,n1,n2,k;
   int ls=-100000;
@@ -18,6 +20,7 @@ int sum(int l,int m,int h)
     { rs=s;
       mr=j;}}
   return rs+ls;}
+
 int max(int l,int h)
 { if(l<h)
   { int m=((l+h)/2);
@@ -25,6 +28,7 @@ int max(int l,int h)
     int rs=max(m+1,h);
     int ms=sum(l,m,h);
     return ls>rs?(ls>ms?ls:ms):(rs>ms?rs:ms);}}
+
 int main()
 { cout<<"\nEnter the no' of elements: ";
   cin>>n;
