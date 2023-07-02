@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
+
 int s[20][20],m[20][20],p[20];
+
 void MCO(int n)
 { int l,i,j,k,q;
   for(i=1;i<=n;i++)
@@ -14,6 +16,7 @@ void MCO(int n)
        if(q<m[i][j])
        { m[i][j]=q;
          s[i][j]=k; }}}}}
+
 void printsol(int i,int j)
 { if(i==j)
   { cout<<"A["<<i<<"]";}
@@ -22,6 +25,7 @@ void printsol(int i,int j)
     printsol(i,s[i][j]);
     printsol(s[i][j]+1,j);
     cout<<")";}}
+
 int main()
 { int n,i;
   cout<<"How many matrices: ";
