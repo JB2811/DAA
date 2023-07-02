@@ -1,18 +1,24 @@
 #include<iostream>
 using namespace std;
+
 struct edge
 { int u,v,w;};
+
 struct Graph
 { int V,e,s,d[10];
   edge E[20];};
+
 Graph g;
+
 void intialisesinglesource()
 { for(int i=1;i<=g.V;i++)
   { g.d[i]=10000000;}
   g.d[g.s]=0;}
+
 void relax(int u,int v,int w)
 { if(g.d[v]>(g.d[u]+w))
   { g.d[v]=g.d[u]+w;}}
+
 bool bellman()
 { intialisesinglesource();
   int i,j;
@@ -23,6 +29,7 @@ bool bellman()
   { if(g.d[g.E[i].v]>(g.d[g.E[i].u]+g.E[i].w))
     { return false;}}
   return true;}
+
 int main()
 { int i;
   cout<<"\nEnter the no' of vertices: ";
