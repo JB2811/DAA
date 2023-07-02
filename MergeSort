@@ -1,10 +1,13 @@
 #include<iostream>
 using namespace std;
+
 int n;
+
 void display(int *a)
 { cout<<"\n";
   for(int i=1;i<=n;i++)
   { cout<<a[i]<<" ";}}
+
 void merge(int *a,int l,int h,int m)
 { int n1,n2;
   n1=m-l+1;
@@ -29,6 +32,7 @@ void merge(int *a,int l,int h,int m)
       j++;}
     k++;}
   display(a);}
+
 void mergesort(int *a,int l,int h)
 { int m;
   if(l<h)
@@ -36,6 +40,7 @@ void mergesort(int *a,int l,int h)
     mergesort(a,l,m);
     mergesort(a,m+1,h);
     merge(a,l,h,m);}}
+
 int main()
 { int a[10];
   cout<<"\nEnter the size of the array: ";
