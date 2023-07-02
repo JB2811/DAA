@@ -1,24 +1,32 @@
 #include<iostream>
 using namespace std;
+
 struct vertex
 { int key,val;};
+
 struct node
 { vertex* val;
   node* link;};
+
 struct Edge
 { int w;
   vertex *u,*v;};
+
 struct Graph
 { int v,r,e;
   vertex *V[20];
   Edge E[20];};
+
 Graph g;
+
 class Queue
 { public:
    node *valu,*front,*temp,*pnew,*pre;
+   
    Queue()
    { front=new node();
      front=NULL;}
+  
    void insert(vertex* p)
    { pnew=new node();
      pnew->val=new vertex();
@@ -42,6 +50,7 @@ class Queue
        if(pre==NULL)
        { pnew->link=front;
          front=pnew;}}}
+   
    int ExtractMin()
    { temp=new node();
      temp=front->link;
@@ -49,6 +58,7 @@ class Queue
      valu=front;
      front=temp;
      return valu->val->val;}
+   
    bool inQueue(int t)
    { temp=new node();
      temp=front;
@@ -57,6 +67,7 @@ class Queue
        { return true;}
        temp=temp->link;}
        return false;}
+   
    void MinQueue()
    { temp=new node();
      pre=new node();
@@ -71,7 +82,9 @@ class Queue
            temp=pnew;}
          temp=temp->link;}
         pre=pre->link;}}};
+
 Queue q;
+
 void MSTPrim(int r)
 { int i,u,v,weight;
   for(i=1;i<=g.v;i++)
@@ -96,6 +109,7 @@ void MSTPrim(int r)
           { cout<<"\n("<<g.E[u].u->val<<","<<g.E[u].v->val<<") - "<<g.V[i]->key;
             weight+=g.V[i]->key;}}}}}
   cout<<"\nTotal Weight: "<<weight;}
+
 int main()
 { int i,j,u,v;
   cout<<"\nenter the no' of vertices: ";
