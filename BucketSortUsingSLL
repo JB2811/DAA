@@ -1,0 +1,83 @@
+#include<iostream>
+using namespace std;
+
+int n;
+float a[20];
+
+struct node
+{ float v;
+  node* link,*back;};
+
+class SLL
+{ public:
+   node *head,*pnew,*temp,*temp2;
+   
+   void insert(float x)
+   { pnew=new node();
+     if(head==NULL)
+     { pnew->v=x;
+       pnew->link=NULL;
+       pnew->back=NULL;
+       head=pnew;}
+     else
+     { temp=new node();
+       temp=head;
+       while(temp->link!=NULL)
+       { temp=temp->link;}
+       pnew->v=x;
+       pnew->link=NULL;
+       temp->link=pnew;
+       pnew->back=temp;}}
+   
+   void sort()
+   { temp=new node();
+     temp2=new node();
+     if(head!=NULL)
+     { temp=head->link;}
+     while(temp!=NULL)
+     { temp2=temp;
+       while(temp2->back!=NULL)
+       { if(temp2->back->v>temp2->v)
+         { float t=temp2->v;
+           temp2->v=temp2->back->v;
+           temp2->back->v=t;}
+         temp2=temp2->back;}
+       temp=temp->link;}}};
+
+SLL s[10];
+
+void display()
+{ cout<<"\n";
+  for(int i=1;i<=n;i++)
+  { cout<<a[i]<<" ";}}
+
+void bucketsort()
+{ int i;
+  for(i=1;i<=n;i++)
+  { s[i].head=NULL;}
+  for(i=1;i<=n;i++)
+  { s[int(n*a[i])].insert(a[i]);}
+  for(i=1;i<=n;i++)
+  { s[i].sort();}
+  int j=1;
+  for(i=1;i<=n;i++)
+  { if(s[i].head==NULL)
+    { continue;}
+    else
+    { s[i].temp=new node();
+      s[i].temp=s[i].head;
+      while(s[i].temp!=NULL)
+      { a[j]=s[i].temp->v;
+        j++;
+        s[i].temp=s[i].temp->link;}}}}
+
+int main()
+{ cout<<"\nEnter size: ";
+  cin>>n;
+  cout<<"\nEnter elements: ";
+  int i;
+  for(i=1;i<=n;i++)
+  { cin>>a[i];}
+  bucketsort();
+  display();
+  return 0;}
