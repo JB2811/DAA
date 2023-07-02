@@ -1,7 +1,9 @@
 #include<iostream>
 using namespace std;
+
 struct edge
 { int u,v,w;};
+
 class Graph
 {public:
   int V,e,s;
@@ -17,7 +19,9 @@ class Graph
         else
         { D[i][j]=10000000;
           P[i][j]=i;}}}}};
-Graph g;s
+
+Graph g;
+
 void floydwarshall()
 { int n=g.V;
   int i,j,k;
@@ -27,6 +31,7 @@ void floydwarshall()
       { if(g.D[i][j]>(g.D[i][k]+g.D[k][j]))
         { g.D[i][j]=(g.D[i][k]+g.D[k][j]);
           g.P[i][j]=g.P[k][j];}}}}}
+
 int main()
 { cout<<"\nEnter the no' of vertices: ";
   cin>>g.V;
