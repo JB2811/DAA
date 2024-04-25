@@ -13,8 +13,8 @@ void merge(int *a,int l,int h,int m)
   n1=m-l+1;
   n2=h-m;
   int la[n1+1],ra[n2+1];
-  la[n1+1]=-100000000;
-  ra[n2+1]=-100000000;
+  la[n1+1]=100000000;
+  ra[n2+1]=100000000;
   int i=1,j=1,k=l;
   while(i<=n1)
   { la[i]=a[l+i-1];
